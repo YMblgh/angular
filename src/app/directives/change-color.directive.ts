@@ -11,8 +11,13 @@ export class ChangeColorDirective {
   }
 
   @HostBinding('class')
-  get a() {
-    return ''
+  get bindClasses() {
+    return 'bg-red-100'
+  }
+
+  @HostListener('click', ['$event'])
+  handleClick(e: MouseEvent) {
+    console.log(e);
   }
 
 }
