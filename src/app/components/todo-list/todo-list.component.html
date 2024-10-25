@@ -1,0 +1,21 @@
+<div class="p-2">
+  <h5 class="">Todo List</h5>
+  <div class="flex">
+    <input type="text" class="w-full outline-0 text-lg" placeholder="title" value="d" (input)="inputChangeHandler($event)" />
+    <app-my-btn
+      class="flex-shrink-0"
+      text="add todo"
+      (click)="addTodoHandler($event)"
+    ></app-my-btn>
+  </div>
+  <ul class="">
+    @for (todoItem of todoList; track $index) {
+    <li class="">
+      <div class="flex justify-between">
+        <span>{{ todoItem.title }}</span>
+        <input type="checkbox" />
+      </div>
+    </li>
+    }
+  </ul>
+</div>
