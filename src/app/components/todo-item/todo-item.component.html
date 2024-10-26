@@ -1,0 +1,26 @@
+<li class="border-b py-2 px-4 rounded-md">
+  <div class="flex justify-between items-center">
+    @if (editMode) {
+      <input type="text" class="w-full outline-none" [placeholder]="title" [(ngModel)]="editInputValue">
+      <div class="flex flex-nowrap">
+        <button mat-icon-button (click)="cancelEditHandler()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editCompleteHandler()">
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <span>{{ todoItem.title }}</span>
+      <div class="flex items-center gap-2">
+        <mat-checkbox [(ngModel)]="checked" (change)="checkChange($event)"></mat-checkbox>
+        <button mat-icon-button (click)="onEditHandler()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteTodoHandler($event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+</li>
