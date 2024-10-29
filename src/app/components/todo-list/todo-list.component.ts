@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, effect, inject, Inject, Input, OnInit, signal } from '@angular/core';
 import { MyBtnComponent } from '../my-btn/my-btn.component';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import {
 } from '@angular/material/checkbox';
 import { TodoItemInterface } from '../../shared/models/todo';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
+import { TodoService } from '../../shared/services/todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -19,18 +20,36 @@ import { TodoItemComponent } from '../todo-item/todo-item.component';
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
-    TodoItemComponent,
+    TodoItemComponent
   ],
+  providers: [TodoService],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
+
+  private todoService: TodoService = inject(TodoService)
+
+  todos = signal<TodoItemInterface[]>([])
+  
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.todoService.getTodos()
+    .then((res: any) => this.todos.set(res));
+  }
+
+  todoEffect = effect(() => {
+    console.log(this.todos());
+    this.todoList = this.todos()
+  })
+
   protected todoList: TodoItemInterface[] = [];
   todoInput: string = '';
 
   addTodoHandler() {
     if (this.todoInput.length != 0) {
-      this.todoList?.push({ id: new Date().getTime() , title: this.todoInput, checked: false });
+      this.todoList?.push({ id: new Date().getTime() , title: this.todoInput, isDone: false, createdAt: new Date() });
       this.todoInput = '';
       document
         .getElementById('#todo-input')
@@ -48,10 +67,10 @@ export class TodoListComponent {
     this.todoList = this.todoList.filter(todo => todo.id != id)
   }
   onCheckTodoHandler(item: TodoItemInterface) {
-    console.log(item.checked);
+    console.log(item.isDone);
     this.todoList.map(todoItem => {
       if (todoItem.id === item.id) {
-        todoItem.checked = item.checked
+        todoItem.isDone = item.isDone
       }
     })
     console.log(this.todoList);

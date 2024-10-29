@@ -16,14 +16,14 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class TodoItemComponent {
   @Input({ required: true })
-  todoItem: TodoItemInterface = { id: -1 , title: '', checked: false };
+  todoItem: TodoItemInterface = { id: -1 , title: '', isDone: false, createdAt: new Date() };
 
   @Output() onDelete: EventEmitter<any> = new EventEmitter()
   @Output() onCheck: EventEmitter<any> = new EventEmitter()
   @Output() onEdit: EventEmitter<any> = new EventEmitter()
 
   title: string = this.todoItem.title;
-  checked: boolean = this.todoItem.checked;
+  checked: boolean = this.todoItem.isDone;
 
   editMode = false
   

@@ -1,5 +1,6 @@
 export interface TodoItemInterface {
   id: number,
   title: string,
-  checked: boolean
+  isDone: boolean,
+  createdAt: Date
 }
