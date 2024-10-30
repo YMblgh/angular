@@ -11,7 +11,8 @@
   } @else {
   <ul class="border rounded-md space-y-2 mt-4">
     @for (todoItem of todoList; track $index) {
-    <app-todo-item [todoItem]="todoItem" (onDelete)="onDleteTodoHandler($event)" (onCheck)="onCheckTodoHandler($event)" />
+    <app-todo-item [todoItem]="todoItem" (onDelete)="onDleteTodoHandler($event)" (onCheck)="onCheckTodoHandler($event)"
+      (onEdit)="onEditTodoHandler($event)" />
     }
   </ul>
   }

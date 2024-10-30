@@ -4,14 +4,14 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { TodoService } from './shared/services/todo.service';
+import { TodoService } from './components/todo/todo.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), 
+    provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    { provide: TodoService }
-  ]
+    { provide: TodoService },
+  ],
 };

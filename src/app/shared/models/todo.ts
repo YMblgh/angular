@@ -1,6 +1,6 @@
 export interface TodoItemInterface {
-  id: number,
-  title: string,
-  isDone: boolean,
-  createdAt: Date
+  id?: number;
+  title?: string;
+  isDone?: boolean;
+  createdAt?: Date;
 }
